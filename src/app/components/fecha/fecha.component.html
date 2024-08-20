@@ -1,0 +1,152 @@
+<!-- Indicador de carga -->
+<div class="loading-overlay" *ngIf="isLoading">
+  <div class="spinner"></div>
+</div>
+
+<div class="card">
+  <div class="card-body">
+    
+
+    <!-- Nueva tarjeta dentro de la tarjeta existente -->
+    <div class="card mt-4">
+      <div class="card-body">
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
+          <div class="row">
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="fechaInicio">Fecha Inicio</label>
+                <input type="date" class="form-control" id="fechaInicio" formControlName="fechaInicio">
+                <div *ngIf="fechaInicio?.invalid && (fechaInicio?.dirty || fechaInicio?.touched)" class="text-danger mt-2">
+                  Fecha Inicio es requerida.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="fechaFin">Fecha Fin</label>
+                <input type="date" class="form-control" id="fechaFin" formControlName="fechaFin">
+                <div *ngIf="fechaFin?.invalid && (fechaFin?.dirty || fechaFin?.touched)" class="text-danger mt-2">
+                  Fecha Fin es requerida.
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3">
+              <div class="form-group">
+                <label for="claveEmpleado">Clave Empleado</label>
+                <input type="text" class="form-control" id="claveEmpleado" formControlName="claveEmpleado" placeholder="Ingrese Clave Empleado">
+              </div>
+            </div>
+            <div class="col-md-3 d-flex align-items-end">
+              <button type="submit" class="btn btn-primary w-100">Buscar</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+    
+  </div>
+</div>
+
+
+<div class="container" *ngIf="asistencias.length > 0">
+  <div *ngFor="let asistencia of asistencias" class="card mb-3">
+    <div class="card-header bg-primary">
+      <!-- <img [src]="asistencia.mainPicture" alt="Foto de {{ asistencia.nombreCompleto }}" class="img-thumbnail" width="100"> -->
+      <h5 class="card-title">{{ asistencia.nombreCompleto }} | {{asistencia.claveEmpleado}}</h5>
+      <!-- <p class="card-text">RFC: {{ asistencia.rfc }}</p> -->
+    </div>
+    <div class="card-body">
+      <div class="col-12">
+      
+      <div class="row">
+
+        <div class="container">
+          
+          <div class="row">
+
+            <div class="col-2">
+              <div class="card">
+                <div class="card-body">
+                  <img [src]="asistencia.mainPicture" alt="Foto de {{ asistencia.nombreCompleto }}" class="img-thumbnail" width="100">
+                </div>
+              </div>
+            </div>
+            <div class="col-10">
+              <div class="card">
+                <div class="card-header bg-secondary">
+                  <h6 class="card-title">Accesos</h6>
+                </div>
+                <div class="card-body">
+                  
+                  <div class="row">
+
+                    <div *ngFor="let fecha of asistencia.fechas" class="col-4">
+                      <div class="card">
+                        <div class="card-header">
+                          <h6 class="card-title">{{ fecha.fecha | date: 'yyyy-MM-dd' }}</h6>
+                        </div>
+                        <div class="card-body">
+                          <!-- <img [src]="asistencia.mainPicture" alt="Foto de {{ asistencia.nombreCompleto }}" class="img-thumbnail" width="100"> -->
+                          <!-- <div *ngFor="let acceso of fecha.accesos" class="card mb-3">
+                            <div class="card-body">
+                              <p class="card-text">{{ acceso.fechaHora }}</p>
+                              <img [src]="acceso.secondaryPath" alt="Acceso" class="img-thumbnail" width="100">
+                            </div>
+                          </div> -->
+
+                          <div class="people-list" style="max-height: 200px; overflow-y: auto;">
+                            <ul class="list-group">
+                              <div *ngFor="let acceso of fecha.accesos" >
+                                <li class="list-group-item d-flex align-items-center">
+                                  <img alt="" class="rounded-circle me-3" [src]="acceso.secondaryPath" style="width: 50px; height: 50px;" (click)="openImage(acceso.secondaryPath)">
+                                  <div class="about">
+                                    <div class="status text-muted" style="color: #11577c;">
+                                      <i class="fa fa-reply text-danger me-1"></i>{{ formatFechaHora(acceso.fechaHora) }}
+                                    </div>
+                                  </div>
+                                </li>
+                              </div>
+                            </ul>
+                          </div>
+
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+
+
+                </div>
+              </div>
+            </div>
+
+
+
+
+          </div>
+
+          
+         
+         
+         
+         
+        </div>
+
+
+
+      </div>
+    </div>
+
+      
+
+
+
+
+
+    </div>
+  </div>
+</div>
+<div *ngIf="asistencias.length === 0">
+  <p>No hay datos disponibles.</p>
+</div>
+

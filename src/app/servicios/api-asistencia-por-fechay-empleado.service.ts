@@ -1,0 +1,27 @@
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { EmpleadoAsistenciaPorFecha } from './amigurumis.service';
+
+@Injectable({
+  providedIn: 'root'
+})
+export class ApiAsistenciaPorFechayEmpleadoService {
+
+  private apiUrl = 'https://g-mc.mx:8102/api/AsistenciaPorFechas';
+
+  constructor(private httpClient: HttpClient) { }
+
+  postAsistenciaPorFechas(fechaInicio: string, fechaFin: string, claveEmpleado?: string): Observable<EmpleadoAsistenciaPorFecha[]> {
+    const formData: FormData = new FormData();
+    formData.append('FechaInicio', fechaInicio);
+    formData.append('FechaFin', fechaFin);
+    if (claveEmpleado) {
+      formData.append('ClaveEmpleado', claveEmpleado);
+    }
+
+    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(this.apiUrl, formData);
+  }
+
+}
+

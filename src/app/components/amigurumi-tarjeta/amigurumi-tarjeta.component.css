@@ -1,0 +1,9 @@
+.card-img-top {
+    height: 200px; /* Altura fija para todas las imágenes */
+    width: auto; /* Ajusta el ancho automáticamente */
+    object-fit: cover; /* Cubre el contenedor sin alterar la relación de aspecto */
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  

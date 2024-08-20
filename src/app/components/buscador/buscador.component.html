@@ -1,0 +1,17 @@
+<h2>Valor Buscado: <small>{{termino}}</small></h2>
+<hr>
+<div class="row animated fadeIn fast" *ngIf="amigurumis.length == 0">
+  <div class="col-md-12">
+    <div class="alert alert-warning" role="alert">
+      No existen resultados con el término: {{ termino }}
+    </div>
+  </div>
+</div>
+
+<div class="row row-cols-1 row-cols-md-3 g-4">
+
+  <!-- <app-amigurumi-tarjeta [amigurumi]="amigurumi" [index]="i" *ngFor="let amigurumi of amigurumis; let i = index "></app-amigurumi-tarjeta> -->
+  <app-amigurumi-tarjeta [amigurumi]="foo" [index]="foo.idx"  *ngFor="let foo of amigurumis"></app-amigurumi-tarjeta>
+
+
+</div>
