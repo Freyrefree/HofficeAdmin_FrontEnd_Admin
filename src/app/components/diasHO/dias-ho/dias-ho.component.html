@@ -8,12 +8,13 @@
   </div>
 
   <div class="row">
-    <div class="col-2" *ngFor="let dia of dias">
+    <div class="col-4" *ngFor="let dia of dias">
       <div class="card shadow-lg">
 
         <div class="card-header text-center bg-primary text-white" style="font-size: 1.2rem; font-weight: bold;">
           {{ dia.dia }}
-          <input type="text" 
+          <input type="text"
+          placeholder="Ingresa clave para agregar" 
                  maxlength="8" 
                  class="form-control mt-2" 
                  [(ngModel)]="dia.inputValue" 
@@ -21,8 +22,6 @@
                  (keydown.enter)="onEnter(dia)">
         </div>
 
-        
-        
         <div class="card-body">
           <div class="mb-3">
             <h3 class="h6">
@@ -37,17 +36,21 @@
               </a>
               <span *ngIf="!dia.empleados || dia.empleados.length === 0" 
                     class="text-danger">
-                Sin empleados asignados
+                No existen empleados asignados
               </span>
             </h3>
-            <hr>
+            <hr/>
             <div [ngClass]="allCollapsed ? '' : 'show'" class="collapse" id="collapse{{dia.id}}">
               <!-- Iteración sobre los empleados dentro de cada día -->
-              <div *ngFor="let empleado of dia.empleados" class="mb-2">
-                <strong>{{ empleado.nombreCompleto }}</strong><br>
-                <small>{{ empleado.claveEmpleado }}</small>
-                <hr>
+              <div *ngFor="let empleado of dia.empleados; let i = index" class="mb-2 d-flex justify-content-between align-items-center">
+                <div class="row w-100">
+                  <div class="col"><strong>{{ empleado.nombreCompleto }}</strong></div>
+                  <div class="col"><small>{{ empleado.claveEmpleado }}</small></div>
+                  <div class="col"><button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(dia.id, empleado.claveEmpleado)">Eliminar</button></div>
+                </div>
               </div>
+              
+
             </div>
           </div>
         </div>

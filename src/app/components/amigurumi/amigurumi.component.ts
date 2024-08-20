@@ -17,7 +17,6 @@ export class AmigurumiComponent {
   ){
     this._activatedRouter.params.subscribe(parametros => {
       // console.log(parametros);
-      this.amigurumi = this._amigurumisService.getAmigurumi(parametros['id']);
 
     })
   }

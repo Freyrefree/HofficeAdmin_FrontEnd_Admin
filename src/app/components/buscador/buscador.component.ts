@@ -24,7 +24,6 @@ export class BuscadorComponent {
     this.activatedRoute.params.subscribe(params =>{
       // console.log(params['termino']);
       this.termino = params['termino'];
-      this.amigurumis = this._amigurumisService.buscarAmigurumi(params['termino']);
       console.log(this.amigurumis)
     })
 
