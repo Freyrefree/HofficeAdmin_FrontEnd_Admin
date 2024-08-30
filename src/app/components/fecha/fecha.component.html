@@ -3,12 +3,15 @@
   <div class="spinner"></div>
 </div>
 
-<div class="card">
-  <div class="card-body">
+
     
 
     <!-- Nueva tarjeta dentro de la tarjeta existente -->
     <div class="card mt-4">
+      <div class="card-header text-white" style="background-color: #10446b;">
+        <!-- Aquí puedes agregar el título o cualquier contenido para el header -->
+        <h5 class="mb-0">Formulario de Búsqueda</h5>
+      </div>
       <div class="card-body">
         <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <div class="row">
@@ -37,20 +40,23 @@
               </div>
             </div>
             <div class="col-md-3 d-flex align-items-end">
-              <button type="submit" class="btn btn-primary w-100">Buscar</button>
+              <!-- <button type="submit" class="btn btn-primary w-100">Buscar</button> -->
+              <button type="submit" class="btn w-100" style="background-color: #11577c; color: white;">Buscar</button>
+
             </div>
           </div>
         </form>
       </div>
     </div>
     
-  </div>
-</div>
+    
 
+<hr>
 
 <div class="container" *ngIf="asistencias.length > 0">
+
   <div *ngFor="let asistencia of asistencias" class="card mb-3">
-    <div class="card-header bg-primary">
+    <div class="card-header" style="background-color: #11577c; color: white;">
       <!-- <img [src]="asistencia.mainPicture" alt="Foto de {{ asistencia.nombreCompleto }}" class="img-thumbnail" width="100"> -->
       <h5 class="card-title">{{ asistencia.nombreCompleto }} | {{asistencia.claveEmpleado}}</h5>
       <!-- <p class="card-text">RFC: {{ asistencia.rfc }}</p> -->
@@ -65,15 +71,18 @@
           <div class="row">
 
             <div class="col-2">
-              <div class="card">
+
+              <div class="card" style="background-color: #cfdae2;">
                 <div class="card-body">
                   <img [src]="asistencia.mainPicture" alt="Foto de {{ asistencia.nombreCompleto }}" class="img-thumbnail" width="100">
                 </div>
               </div>
+
+
             </div>
             <div class="col-10">
               <div class="card">
-                <div class="card-header bg-secondary">
+                <div class="card-header"  style="background-color: #afda6e;">
                   <h6 class="card-title">Accesos</h6>
                 </div>
                 <div class="card-body">
@@ -82,7 +91,7 @@
 
                     <div *ngFor="let fecha of asistencia.fechas" class="col-4">
                       <div class="card">
-                        <div class="card-header">
+                        <div class="card-header" style="background-color: #10446b; color: white;">
                           <h6 class="card-title">{{ fecha.fecha | date: 'yyyy-MM-dd' }}</h6>
                         </div>
                         <div class="card-body">
@@ -101,7 +110,7 @@
                                   <img alt="" class="rounded-circle me-3" [src]="acceso.secondaryPath" style="width: 50px; height: 50px;" (click)="openImage(acceso.secondaryPath)">
                                   <div class="about">
                                     <div class="status text-muted" style="color: #11577c;">
-                                      <i class="fa fa-reply text-danger me-1"></i>{{ formatFechaHora(acceso.fechaHora) }}
+                                      <small>{{ formatFechaHora(acceso.fechaHora) }}</small>
                                     </div>
                                   </div>
                                 </li>

@@ -1,7 +1,7 @@
 <div class="container mt-5">
   <div class="d-flex justify-content-between align-items-center">
     <!-- <h2 class="text-center mb-4">Vista Por Días</h2>  -->
-    <button class="btn btn-primary" (click)="toggleAll()">
+    <button class="btn" style="background-color: #11577c; color: white;" (click)="toggleAll()">
       {{ allCollapsed ? 'Expandir Todos' : 'Contraer Todos' }}
     </button>
     <br><br>
@@ -11,7 +11,7 @@
     <div class="col-4" *ngFor="let dia of dias">
       <div class="card shadow-lg">
 
-        <div class="card-header text-center bg-primary text-white" style="font-size: 1.2rem; font-weight: bold;">
+        <div class="card-header text-center text-white" style="background-color: #10446b; font-size: 1.2rem; font-weight: bold;">
           {{ dia.dia }}
           <input type="text"
           placeholder="Ingresa clave para agregar" 
@@ -39,8 +39,7 @@
                 No existen empleados asignados
               </span>
             </h3>
-            <hr/>
-            <div [ngClass]="allCollapsed ? '' : 'show'" class="collapse" id="collapse{{dia.id}}">
+            <div [ngClass]="allCollapsed ? '' : 'show'" class="collapse" id="collapse{{dia.id}}" style="max-height: 500px; overflow-y: auto;">
               <!-- Iteración sobre los empleados dentro de cada día -->
               <div *ngFor="let empleado of dia.empleados; let i = index" class="mb-2 d-flex justify-content-between align-items-center">
                 <div class="row w-100">
@@ -49,9 +48,8 @@
                   <div class="col"><button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(dia.id, empleado.claveEmpleado)">Eliminar</button></div>
                 </div>
               </div>
-              
-
             </div>
+            
           </div>
         </div>
         <!-- <div class="card-footer text-muted text-center">
