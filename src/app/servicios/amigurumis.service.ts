@@ -56,6 +56,7 @@ export interface EmpleadoAsistenciaPorFecha {
 export interface Fecha {
   fecha:   Date;
   accesos: Acceso[];
+  diaHO: boolean;
 }
 
 

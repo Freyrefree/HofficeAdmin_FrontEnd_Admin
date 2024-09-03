@@ -40,10 +40,15 @@
               </div>
             </div>
             <div class="col-md-3 d-flex align-items-end">
-              <!-- <button type="submit" class="btn btn-primary w-100">Buscar</button> -->
+              <!-- Botón Buscar -->
               <button type="submit" class="btn w-100" style="background-color: #11577c; color: white;">Buscar</button>
-
+            
+              <!-- Botón para Descargar PDF -->
+              <button type="button" class="btn w-100 ms-2" (click)="descargarPDF()" style="background-color: #db4844; color: white;">
+                <i class="bi bi-file-earmark-pdf-fill"></i>PDF
+              </button>
             </div>
+            
           </div>
         </form>
       </div>

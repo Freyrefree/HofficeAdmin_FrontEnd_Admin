@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { jsPDF } from 'jspdf';
+import 'jspdf-autotable';
+import html2canvas from 'html2canvas';
 
 //servicios
 import { AmigurumisService, EmpleadoAsistenciaPorFecha } from 'src/app/servicios/amigurumis.service';
@@ -18,6 +21,7 @@ export class FechaComponent implements OnInit {
   form: FormGroup;
   isLoading = false; // Propiedad para controlar el estado de carga
   asistencias: EmpleadoAsistenciaPorFecha[] = [];
+  dataPDF: EmpleadoAsistenciaPorFecha[] = [];
 
   constructor(
     private _router: Router,
@@ -52,6 +56,7 @@ export class FechaComponent implements OnInit {
     if (this.form.valid) {
       this.showLoading();
       try {
+
         const fechaInicio = this.form.value.fechaInicio;
         const fechaFin = this.form.value.fechaFin;
         const claveEmpleado = this.form.value.claveEmpleado;
@@ -122,6 +127,126 @@ export class FechaComponent implements OnInit {
     const seconds = ('0' + fecha.getSeconds()).slice(-2);
     return `${year}-${month}-${day} ${hours}:${minutes}:${seconds}`;
   }
+
+   // Nueva función para descargar PDF
+   descargarPDF(): void {
+    if (this.form.valid) {
+      this.showLoading();
+      try {
+        const fechaInicio = this.form.value.fechaInicio;
+        const fechaFin = this.form.value.fechaFin;
+        const claveEmpleado = this.form.value.claveEmpleado;
+
+        //*****************************************************
+
+
+    this.apiAsistenciaPorFechayEmpleadoService.postReportePorFechas(fechaInicio, fechaFin, claveEmpleado)
+  .subscribe(
+    (response: EmpleadoAsistenciaPorFecha[]) => {
+      this.dataPDF = response;
+      console.log(this.dataPDF);
+
+      const doc = new jsPDF('landscape');
+      const fechaColumnas: string[] = [];
+      const tableData: any[] = [];
+
+      // Construir las columnas de fechas
+      this.dataPDF.forEach(empleado => {
+        empleado.fechas.forEach(fecha => {
+          const fechaFormatted = new Date(fecha.fecha).toLocaleDateString();
+          if (!fechaColumnas.includes(fechaFormatted)) {
+            fechaColumnas.push(fechaFormatted);
+          }
+        });
+      });
+
+      // Construir las filas de la tabla
+      this.dataPDF.forEach(empleado => {
+        const row: any = {
+          claveEmpleado: empleado.claveEmpleado,
+          nombreCompleto: empleado.nombreCompleto
+        };
+
+        // Agregar "A" en las columnas correspondientes si hay al menos un acceso
+        fechaColumnas.forEach(fechaCol => {
+          const fecha = empleado.fechas.find(f => new Date(f.fecha).toLocaleDateString() === fechaCol);
+          if(fecha?.diaHO){
+
+            if (fecha && fecha.accesos.length > 1) {
+              row[fechaCol] = 'A';
+            }else{
+              row[fechaCol] = 'F Accesos Incompletos';
+            }
+
+          }else{
+            row[fechaCol] ='No aplica HO';
+          }
+
+        });
+
+        tableData.push(row);
+      });
+
+      // Configurar columnas de la tabla
+      const columns = [
+        { header: 'Clave Empleado', dataKey: 'claveEmpleado' },
+        { header: 'Nombre Completo', dataKey: 'nombreCompleto' },
+        ...fechaColumnas.map(fecha => ({ header: fecha, dataKey: fecha }))
+      ];
+
+      // // Generar la tabla en el PDF
+      // (doc as any).autoTable({
+      //   head: [columns.map(col => col.header)],
+      //   body: tableData.map(row => columns.map(col => row[col.dataKey] || '')),
+      //   startY: 10,
+      //   margin: { top: 10 },
+      //   styles: { fontSize: 8 },
+      //   theme: 'grid'
+      // });
+            // Generar la tabla en el PDF con márgenes estrechos
+            (doc as any).autoTable({
+              head: [columns.map(col => col.header)],
+              body: tableData.map(row => columns.map(col => row[col.dataKey] || '')),
+              startY: 10, // Esto define el margen superior
+              margin: { top: 10, right: 10, bottom: 10, left: 10 }, // Márgenes estrechos
+              styles: { fontSize: 8 },
+              theme: 'grid'
+            });
+
+      // Guardar el PDF
+      doc.save('Asistencia.pdf');
+    },
+    (error) => {
+      console.error("Error:", error);
+      this.snackBar.open('Error al realizar la consulta.', 'Cerrar', {
+        duration: 6000,
+        panelClass: ['mat-warn']
+      });
+    }
+  );
+
+  //**********************************************************************
+
+
+      
+
+      } catch (error) {
+        console.error("Error en onSubmit:", error);
+        this.snackBar.open('Error inesperado. Por favor, intente nuevamente.', 'Cerrar', {
+          duration: 6000,
+          panelClass: ['mat-warn']
+        });
+      } finally {
+        this.hideLoading();
+      }
+    } else {
+      this.snackBar.open('El formulario no es válido.', 'Cerrar', {
+        duration: 6000,
+        panelClass: ['mat-warn']
+      });
+    }
+  }
+
 
 
 

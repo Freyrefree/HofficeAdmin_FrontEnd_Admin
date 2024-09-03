@@ -9,6 +9,8 @@ import { EmpleadoAsistenciaPorFecha } from './amigurumis.service';
 export class ApiAsistenciaPorFechayEmpleadoService {
 
   private apiUrl = 'https://g-mc.mx:8102/api/AsistenciaPorFechas';
+  private apiUrlReporte = 'https://g-mc.mx:8102/api/ReportePorFechas';
+  
 
   constructor(private httpClient: HttpClient) { }
 
@@ -21,6 +23,20 @@ export class ApiAsistenciaPorFechayEmpleadoService {
     }
 
     return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(this.apiUrl, formData);
+  }
+
+
+  postReportePorFechas(fechaInicio: string, fechaFin: string, claveEmpleado?: string): Observable<EmpleadoAsistenciaPorFecha[]> {
+
+    const formData: FormData = new FormData();
+    formData.append('FechaInicio', fechaInicio);
+    formData.append('FechaFin', fechaFin);
+    if (claveEmpleado) {
+      formData.append('ClaveEmpleado', claveEmpleado);
+    }
+
+    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(this.apiUrlReporte, formData);
+
   }
 
 }
