@@ -21,6 +21,8 @@ export class DiasHOComponent implements OnInit {
   diasInput: { id: number, dia: string, empleados: any[], inputValue?: string }[] = [
     // Tu lista de días aquí, añade inputValue como opcional
   ];
+  loading: boolean = false;
+
 
   constructor(private apiDiasHOService: ApiDiasHOService, private snackBar: MatSnackBar) { }
 
@@ -29,11 +31,23 @@ export class DiasHOComponent implements OnInit {
   }
 
   cargarDiasHO(): void {
-    this.apiDiasHOService.getDiasHO().subscribe((data: TblDiasAsignados[]) => {
-      this.dias = data;
-      // console.log("DATA DIAS:", this.dias);
-    });
+    this.loading = true;
+    this.apiDiasHOService.getDiasHO().subscribe(
+      (data: TblDiasAsignados[]) => {
+        this.dias = data;
+        this.loading = false;
+      },
+      (error) => {
+        console.error('Error al cargar días:', error);
+        this.snackBar.open('Error al cargar los días.', 'Cerrar', {
+          duration: 6000,
+          panelClass: ['mat-warn']
+        });
+        this.loading = false;
+      }
+    );
   }
+  
 
   toggleAll() {
     this.allCollapsed = !this.allCollapsed;

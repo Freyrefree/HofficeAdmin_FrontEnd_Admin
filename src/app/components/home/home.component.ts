@@ -18,6 +18,8 @@ import { EmpleadoAsistencia } from 'src/app/servicios/amigurumis.service';
 export class HomeComponent {
 
   asistenciaDelDia: EmpleadoAsistencia[] = [];
+  loading: boolean = false;
+
 
   
 
@@ -35,6 +37,8 @@ export class HomeComponent {
   amigurumis:Amigurumi[]=[];
 
   ngOnInit(): void {
+    this.loading = true; // Activar el loading
+
     this.route.queryParams.subscribe(params => {
       const token = params['token'];
       if (token) {
@@ -67,9 +71,11 @@ export class HomeComponent {
       data => {
         this.asistenciaDelDia = data;
         console.log('Asistencia del día:', this.asistenciaDelDia);
+        this.loading = false; // Desactivar el loading
       },
       error => {
         console.error('Error al obtener la asistencia del día:', error);
+        this.loading = false; // Desactivar el loading
       }
     );
 

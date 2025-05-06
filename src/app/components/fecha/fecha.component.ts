@@ -19,9 +19,11 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 })
 export class FechaComponent implements OnInit {
   form: FormGroup;
-  isLoading = false; // Propiedad para controlar el estado de carga
   asistencias: EmpleadoAsistenciaPorFecha[] = [];
   dataPDF: EmpleadoAsistenciaPorFecha[] = [];
+  isLoading = false;
+
+
 
   constructor(
     private _router: Router,
@@ -40,13 +42,8 @@ export class FechaComponent implements OnInit {
     
   }
 
-  private showLoading() {
-    this.isLoading = true;
-  }
 
-  private hideLoading() {
-    this.isLoading = false;
-  }
+
 
   ngOnInit() {
     console.log("ngOnInit");
@@ -54,52 +51,31 @@ export class FechaComponent implements OnInit {
 
   onSubmit(): void {
     if (this.form.valid) {
-      this.showLoading();
-      try {
-
-        const fechaInicio = this.form.value.fechaInicio;
-        const fechaFin = this.form.value.fechaFin;
-        const claveEmpleado = this.form.value.claveEmpleado;
-
-        console.log("Fecha Inicio:", fechaInicio);
-        console.log("Fecha Fin:", fechaFin);
-        console.log("Clave Empleado:", claveEmpleado);
-
-        this.apiAsistenciaPorFechayEmpleadoService.postAsistenciaPorFechas(fechaInicio, fechaFin, claveEmpleado)
-          .subscribe(
-            (response: EmpleadoAsistenciaPorFecha[]) => {
-              console.log("Respuesta Datos:", response);
-              this.asistencias = response;
-              this.snackBar.open('Consulta exitosa.', 'Cerrar', {
-                duration: 6000,
-                panelClass: ['mat-success']
-              });
-            },
-            (error) => {
-              console.error("Error:", error);
-              this.snackBar.open('Error al realizar la consulta.', 'Cerrar', {
-                duration: 6000,
-                panelClass: ['mat-warn']
-              });
-            }
-          );
-
-      } catch (error) {
-        console.error("Error en onSubmit:", error);
-        this.snackBar.open('Error inesperado. Por favor, intente nuevamente.', 'Cerrar', {
-          duration: 6000,
-          panelClass: ['mat-warn']
-        });
-      } finally {
-        this.hideLoading();
-      }
+      this.isLoading = true; // Muestra el loading
+  
+      const fechaInicio = this.form.value.fechaInicio;
+      const fechaFin = this.form.value.fechaFin;
+      const claveEmpleado = this.form.value.claveEmpleado;
+  
+      this.apiAsistenciaPorFechayEmpleadoService.postAsistenciaPorFechas(fechaInicio, fechaFin, claveEmpleado)
+        .subscribe(
+          (response: EmpleadoAsistenciaPorFecha[]) => {
+            this.asistencias = response;
+            this.snackBar.open('Consulta exitosa.', 'Cerrar', { duration: 6000, panelClass: ['mat-success'] });
+            this.isLoading = false; // Oculta el loading
+          },
+          (error) => {
+            console.error("Error:", error);
+            this.snackBar.open('Error al realizar la consulta.', 'Cerrar', { duration: 6000, panelClass: ['mat-warn'] });
+            this.isLoading = false;
+          }
+        );
     } else {
-      this.snackBar.open('El formulario no es válido.', 'Cerrar', {
-        duration: 6000,
-        panelClass: ['mat-warn']
-      });
+      this.snackBar.open('El formulario no es válido.', 'Cerrar', { duration: 6000, panelClass: ['mat-warn'] });
     }
   }
+  
+  
 
   get fechaInicio() {
     return this.form.get('fechaInicio');
@@ -131,7 +107,6 @@ export class FechaComponent implements OnInit {
    // Nueva función para descargar PDF
    descargarPDF(): void {
     if (this.form.valid) {
-      this.showLoading();
       try {
         const fechaInicio = this.form.value.fechaInicio;
         const fechaFin = this.form.value.fechaFin;
@@ -237,7 +212,6 @@ export class FechaComponent implements OnInit {
           panelClass: ['mat-warn']
         });
       } finally {
-        this.hideLoading();
       }
     } else {
       this.snackBar.open('El formulario no es válido.', 'Cerrar', {

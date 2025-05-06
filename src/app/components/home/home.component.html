@@ -1,10 +1,13 @@
-
-<div class="row row-cols-1 row-cols-md-4 g-4">
-  <app-amigurumi-tarjeta 
-    *ngFor="let empleado of asistenciaDelDia; let i = index" 
-    [empleado]="empleado" 
-    [index]="i">
-  </app-amigurumi-tarjeta>
+<app-loading [isLoading]="loading"></app-loading>
+<div *ngIf="!loading">
+  <div *ngIf="asistenciaDelDia.length === 0" class="text-center">
+    <p>No hay información disponible.</p>
+  </div>
+  <div *ngIf="asistenciaDelDia.length > 0" class="row row-cols-1 row-cols-md-4 g-4">
+    <app-amigurumi-tarjeta 
+      *ngFor="let empleado of asistenciaDelDia; let i = index" 
+      [empleado]="empleado" 
+      [index]="i">
+    </app-amigurumi-tarjeta>
+  </div>
 </div>
-
-

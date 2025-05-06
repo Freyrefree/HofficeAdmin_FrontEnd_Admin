@@ -1,12 +1,6 @@
-<!-- Indicador de carga -->
-<div class="loading-overlay" *ngIf="isLoading">
-  <div class="spinner"></div>
-</div>
+<app-loading [isLoading]="isLoading"></app-loading>
 
-
-    
-
-    <!-- Nueva tarjeta dentro de la tarjeta existente -->
+   <!-- Nueva tarjeta dentro de la tarjeta existente -->
     <div class="card mt-4">
       <div class="card-header text-white" style="background-color: #10446b;">
         <!-- Aquí puedes agregar el título o cualquier contenido para el header -->
@@ -42,6 +36,7 @@
             <div class="col-md-3 d-flex align-items-end">
               <!-- Botón Buscar -->
               <button type="submit" class="btn w-100" style="background-color: #11577c; color: white;">Buscar</button>
+              
             
               <!-- Botón para Descargar PDF -->
               <button type="button" class="btn w-100 ms-2" (click)="descargarPDF()" style="background-color: #db4844; color: white;">

@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DiasHOComponent } from './components/diasHO/dias-ho/dias-ho.component';
+import { LoadingComponent } from './components/shared/loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { DiasHOComponent } from './components/diasHO/dias-ho/dias-ho.component';
     BuscadorComponent,
     AmigurumiTarjetaComponent,
     FotoEmpleadoModalComponent,
-    DiasHOComponent
+    DiasHOComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
