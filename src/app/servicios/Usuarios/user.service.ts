@@ -6,7 +6,7 @@ import { jwtDecode } from 'jwt-decode'; // Importa jwtDecode para decodificar el
 import { API_URLS } from 'src/app/Config/api-urls'; // Asegúrate de que la ruta sea correcta
 
 // **************  Interfcaes **********
-import { ApiResponseUsuarios, ApiResponseUsuariosData, Empleado, RespuestaUsuario, Usuarios } from '../../Interfaces/Data';
+import { ApiResponseUsuarios, Empleado } from '../../Interfaces/Data';
 
 @Injectable({
   providedIn: 'root',
@@ -187,85 +187,10 @@ export class UserService {
 
 
 
-  async Usuarios(): Promise<Usuarios[]> {
-    try {
-      // Verificar si hay conexión a Internet
-      if (!navigator.onLine) {
-        throw new Error('No hay conexión a Internet');
-      }
 
-      // Realizamos la solicitud GET
-      const respuesta = await this.http.get<ApiResponseUsuariosData>(API_URLS.API_URL_USUARIOS).toPromise();
 
-      // Verificamos si la respuesta y los datos son válidos
-      if (respuesta && respuesta.detalle.estatus && respuesta.detalle.data) {
-        return respuesta.detalle.data; // Retornamos la lista de pedidos
-      } else {
-        throw new Error('La respuesta del servidor no es válida');
-      }
-    } catch (error: any) {
-      console.error('Error al obtener los pedidos:', error);
-      throw error; // Deja que el componente maneje el error
-    }
-  }
 
-  async CambiarEstatus(id: number): Promise<RespuestaUsuario> {
-    try {
-      // Verificar si hay conexión a Internet
-      if (!navigator.onLine) {
-        throw new Error('No hay conexión a Internet');
-      }
-  
-      // Crear un objeto FormData con el ID
-      const formData = new FormData();
-      formData.append('idUsuario', id.toString());
-  
-      // Realizamos la solicitud POST
-      const respuesta = await this.http.post<RespuestaUsuario>(API_URLS.API_URL_CAMBIAR_ESTATUS, formData).toPromise();
-      
-  
-      // Verificar si la respuesta es válida
-      if (respuesta && typeof respuesta.respuesta === 'boolean' && typeof respuesta.mensaje === 'string') {
-        console.log('Cambio de estatus exitoso:', respuesta);
-        return respuesta;
-      } else {
-        throw new Error('La respuesta del servidor no es válida');
-      }
-    } catch (error: any) {
-      console.error('Error al cambiar el estatus:', error);
-      throw error;
-    }
-  }
 
-  async CambiarPerfil(idUsuario: number, idPerfil:number): Promise<RespuestaUsuario> {
-    try {
-      // Verificar si hay conexión a Internet
-      if (!navigator.onLine) {
-        throw new Error('No hay conexión a Internet');
-      }
-  
-      // Crear un objeto FormData con el ID
-      const formData = new FormData();
-      formData.append('idUsuario', idUsuario.toString());
-      formData.append('idPerfil', idPerfil.toString());
-
-  
-      // Realizamos la solicitud POST
-      const respuesta = await this.http.post<RespuestaUsuario>(API_URLS.API_URL_CAMBIAR_PERFIL, formData).toPromise();
-      
-  
-      // Verificar si la respuesta es válida
-      if (respuesta && typeof respuesta.respuesta === 'boolean' && typeof respuesta.mensaje === 'string') {
-        console.log('Cambio de perfil exitoso:', respuesta);
-        return respuesta;
-      } else {
-        throw new Error('La respuesta del servidor no es válida');
-      }
-    } catch (error: any) {
-      console.error('Error al cambiar el perfil:', error);
-      throw error;
-    }
-  }
 
 
   async verificarPermisosRuta(path: string | undefined): Promise<boolean> {

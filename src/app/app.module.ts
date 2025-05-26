@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app.routes'; // Asegúrate de que la ruta sea correcta
 
 //Rutas
-import { APP_ROUTING } from './app.routes';
+
 //Servicios
 import { AmigurumisService } from './servicios/amigurumis.service';
 
@@ -25,6 +27,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DiasHOComponent } from './components/diasHO/dias-ho/dias-ho.component';
 import { LoadingComponent } from './components/shared/loading/loading.component';
+import { UnauthorizedComponent } from './components/Unauthorized/unauthorized/unauthorized.component';
 
 @NgModule({
   declarations: [
@@ -37,15 +40,18 @@ import { LoadingComponent } from './components/shared/loading/loading.component'
     AmigurumiTarjetaComponent,
     FotoEmpleadoModalComponent,
     DiasHOComponent,
-    LoadingComponent
+    LoadingComponent,
+    UnauthorizedComponent
   ],
   imports: [
     BrowserModule,
+    RouterModule.forRoot([]), // Importa RouterModule
+    AppRoutingModule,
     ReactiveFormsModule, // Importa ReactiveFormsModule aquí
     HttpClientModule,
     FormsModule, // Agrega FormsModule aquí
     MatSnackBarModule,
-    APP_ROUTING, BrowserAnimationsModule
+    BrowserAnimationsModule
   ],
   providers: [
     AmigurumisService,
