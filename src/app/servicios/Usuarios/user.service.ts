@@ -222,8 +222,9 @@ export class UserService {
   
       // 5. Mapeo de rutas a módulos requeridos
       const requiredModules: { [key: string]: string } = {
-        'pedidos': 'pedidos',
-        'usuarios': 'usuarios'
+        'home': 'home',
+        'fechas': 'fechas',
+        'dias': 'dias',
       };
   
       // 6. Manejar ruta raíz (redirección)
