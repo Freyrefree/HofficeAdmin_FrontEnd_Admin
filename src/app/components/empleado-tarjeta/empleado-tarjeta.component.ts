@@ -1,10 +1,7 @@
-import { Component, OnInit, Input, Output,EventEmitter,ViewChild   } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, Input} from '@angular/core';
 
 //interfaces
 import { EmpleadoAsistencia } from 'src/app/Interfaces/Data';
-
-declare var bootstrap: any; // Declara la variable bootstrap para usarla más adelante
 
 
 @Component({
@@ -14,24 +11,18 @@ declare var bootstrap: any; // Declara la variable bootstrap para usarla más ad
 })
 export class EmpleadoTarjetaComponent {
 
-  @Input() amigurumi: any = {};
   @Input() empleado: EmpleadoAsistencia = {} as EmpleadoAsistencia;
-
   @Input() index: number = 0
-  @Output() amigurumiSeleccionado:EventEmitter<number>;
 
 
 
   selectedImageUrl: string = '';
 
-  constructor(private _router:Router){
-    this.amigurumiSeleccionado = new EventEmitter();
+  constructor(){
 
   }
 
-  ngOnInit(){
 
-  }
 
   formatFechaHora(fechaHora: string): string {
     const fecha = new Date(fechaHora);
