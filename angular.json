@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "appBSiblePage": {
+    "HOfficeAdmin": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -85,10 +85,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "appBSiblePage:build:production"
+              "browserTarget": "HOfficeAdmin:build:production"
             },
             "development": {
-              "browserTarget": "appBSiblePage:build:development"
+              "browserTarget": "HOfficeAdmin:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -96,7 +96,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "appBSiblePage:build"
+            "browserTarget": "HOfficeAdmin:build"
           }
         },
         "test": {

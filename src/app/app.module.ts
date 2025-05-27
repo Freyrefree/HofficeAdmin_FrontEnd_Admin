@@ -6,7 +6,6 @@ import { AppRoutingModule } from './app.routes'; // Asegúrate de que la ruta se
 //Rutas
 
 //Servicios
-import { AmigurumisService } from './servicios/amigurumis.service';
 
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -47,7 +46,6 @@ import { UnauthorizedComponent } from './components/Unauthorized/unauthorized/un
     BrowserAnimationsModule
   ],
   providers: [
-    AmigurumisService,
   ],
   bootstrap: [AppComponent]
 })

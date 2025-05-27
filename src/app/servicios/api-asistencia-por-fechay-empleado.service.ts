@@ -4,16 +4,14 @@ import { Observable } from 'rxjs';
 
 // Interfaces
 import { EmpleadoAsistenciaPorFecha } from '../Interfaces/Data';
+import { API_URLS } from '../Config/api-urls';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiAsistenciaPorFechayEmpleadoService {
 
-  private apiUrl = 'https://g-mc.mx:8102/api/AsistenciaPorFechas';
-  private apiUrlReporte = 'https://g-mc.mx:8102/api/ReportePorFechas';
-  
-
+ 
   constructor(private httpClient: HttpClient) { }
 
   postAsistenciaPorFechas(fechaInicio: string, fechaFin: string, claveEmpleado?: string): Observable<EmpleadoAsistenciaPorFecha[]> {
@@ -24,7 +22,7 @@ export class ApiAsistenciaPorFechayEmpleadoService {
       formData.append('ClaveEmpleado', claveEmpleado);
     }
 
-    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(this.apiUrl, formData);
+    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(API_URLS.API_URL_ASISTENCIA_POR_FECHAYEMPLEADO , formData);
   }
 
 
@@ -37,7 +35,7 @@ export class ApiAsistenciaPorFechayEmpleadoService {
       formData.append('ClaveEmpleado', claveEmpleado);
     }
 
-    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(this.apiUrlReporte, formData);
+    return this.httpClient.post<EmpleadoAsistenciaPorFecha[]>(API_URLS.API_URL_REPORTE_POR_FECHAS, formData);
 
   }
 

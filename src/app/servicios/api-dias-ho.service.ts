@@ -4,23 +4,19 @@ import { Observable } from 'rxjs';
 
 // Interfaces
 import { TblDiasAsignados } from '../Interfaces/Data';
+// Archivo de api-urls
+import { API_URLS } from '../Config/api-urls'; // Asegúrate de que la ruta sea correcta
 
 @Injectable({
   providedIn: 'root'
 })
 export class ApiDiasHOService {
 
-  private apiUrl = 'https://g-mc.mx:8102/api/DiasSemana'; // Verifica que esta URL sea correcta para tu endpoint
-  private apiUrlAsignacion = 'https://g-mc.mx:8102/api/AsignacionEmpleadoDia'; // Verifica que esta URL sea correcta para tu endpoint
-  private apiUrlEliminarAsignacion = 'https://g-mc.mx:8102/api/EliminarAsignacionEmpleadoDia'; // Verifica que esta URL sea correcta para tu endpoint
-
-
-  
 
   constructor(private httpClient: HttpClient) { }
 
   getDiasHO(): Observable<TblDiasAsignados[]> {
-    return this.httpClient.get<TblDiasAsignados[]>(this.apiUrl); // Recuperar datos usando GET
+    return this.httpClient.get<TblDiasAsignados[]>(API_URLS.API_URL_DIAS_SEMANA); // Recuperar datos usando GET
   }
 
   postAsignacionDia(id: string, claveEmpleado: string): Observable<boolean> {
@@ -28,7 +24,7 @@ export class ApiDiasHOService {
     formData.append('ClaveEmpleado', claveEmpleado);
     formData.append('idDia', id);
 
-    return this.httpClient.post<boolean>(this.apiUrlAsignacion, formData);
+    return this.httpClient.post<boolean>(API_URLS.API_URL_ASIGNACION_EMPLEADO_DIA, formData);
   }
 
   postEliminarAsignacionDia(id: string, claveEmpleado: string): Observable<boolean> {
@@ -36,7 +32,7 @@ export class ApiDiasHOService {
     formData.append('ClaveEmpleado', claveEmpleado);
     formData.append('idDia', id);
 
-    return this.httpClient.post<boolean>(this.apiUrlEliminarAsignacion, formData);
+    return this.httpClient.post<boolean>(API_URLS.API_URL_ELIMINAR_ASIGNACION_EMPLEADO_DIA, formData);
   }
 
 
