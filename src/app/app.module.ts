@@ -15,13 +15,9 @@ import { AppComponent } from './app.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { HomeComponent } from './components/home/home.component';
 import { FechaComponent } from './components/fecha/fecha.component';
-import { AmigurumiComponent } from './components/amigurumi/amigurumi.component';
-import { BuscadorComponent } from './components/buscador/buscador.component';
-import { AmigurumiTarjetaComponent } from './components/amigurumi-tarjeta/amigurumi-tarjeta.component';
+import { EmpleadoTarjetaComponent } from './components/empleado-tarjeta/empleado-tarjeta.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ApiActualizarCodigoLiberacionService } from './servicios/api-actualizar-codigo-liberacion-service.service';
-import { FotoEmpleadoModalComponent } from './components/foto-empleado-modal/foto-empleado-modal.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { MatSnackBarModule } from '@angular/material/snack-bar';
@@ -35,10 +31,7 @@ import { UnauthorizedComponent } from './components/Unauthorized/unauthorized/un
     NavbarComponent,
     HomeComponent,
     FechaComponent,
-    AmigurumiComponent,
-    BuscadorComponent,
-    AmigurumiTarjetaComponent,
-    FotoEmpleadoModalComponent,
+    EmpleadoTarjetaComponent,
     DiasHOComponent,
     LoadingComponent,
     UnauthorizedComponent
@@ -55,7 +48,6 @@ import { UnauthorizedComponent } from './components/Unauthorized/unauthorized/un
   ],
   providers: [
     AmigurumisService,
-    ApiActualizarCodigoLiberacionService
   ],
   bootstrap: [AppComponent]
 })

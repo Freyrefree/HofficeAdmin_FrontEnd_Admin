@@ -1,15 +1,15 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { Amigurumi } from 'src/app/servicios/amigurumis.service';
 import { ActivatedRoute } from '@angular/router';
 
 //servicios
-import { AmigurumisService } from 'src/app/servicios/amigurumis.service';
 import { ApiAsistenciaDelDiaService } from 'src/app/servicios/api-asistencia-del-dia.service';
 
 
-//interfaz
-import { EmpleadoAsistencia } from 'src/app/servicios/amigurumis.service';
+//interfaces
+import { EmpleadoAsistencia } from 'src/app/Interfaces/Data';
+import { EmpleadoA } from 'src/app/Interfaces/Data';
+
 
 @Component({
   selector: 'app-home',
@@ -24,8 +24,6 @@ export class HomeComponent {
   
 
   constructor(
-    private _amigurumisService:AmigurumisService,
-    private _router:Router,
     private apiAsistenciaDelDiaService: ApiAsistenciaDelDiaService,
     private route: ActivatedRoute
     ){
@@ -34,7 +32,7 @@ export class HomeComponent {
 
   }
 
-  amigurumis:Amigurumi[]=[];
+  amigurumis:EmpleadoA[]=[];
 
   ngOnInit(): void {
     this.loading = true; // Activar el loading
@@ -50,21 +48,7 @@ export class HomeComponent {
     });
   
 
-    // this.receiveToken();
 
-    // console.log("ngOnInit");
-    // this.amigurumis=this._amigurumisService.getAmigurumis();
-    // console.log(this.amigurumis);
-
-    // this.apiAsistenciaDelDiaService.getAsistenciaDelDia().subscribe(
-    //   data => {
-    //     this.asistenciaDelDia = data;
-    //     console.log('Asistencia del día:', this.asistenciaDelDia);
-    //   },
-    //   error => {
-    //     console.error('Error al obtener la asistencia del día:', error);
-    //   }
-    // );
     console.log("ngOnInit");
 
     this.apiAsistenciaDelDiaService.getAsistenciaDelDia().subscribe(

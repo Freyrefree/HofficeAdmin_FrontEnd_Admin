@@ -56,165 +56,72 @@ export interface RespuestaUsuario {
   mensaje: string;
 }
 
+//*********************************************
+export interface EmpleadoA{
+
+    nombre: string;
+    bio: string;
+    img: string;
+    aparicion: string;
+    casa: string;
+    idx?: number;
+    
+}
+
+/// ***************************  Asistencia del Día **************************
+
+export interface Acceso {
+  fechaHora: string;
+  secondaryPath: string;
+}
+
+export interface EmpleadoAsistencia {
+  claveEmpleado: string;
+  mainPicture: string;
+  nombreCompleto: string;
+  rfc: string;
+  fecha: string;
+  accesos: Acceso[];
+}
+
+// **************************** Asistencia Por fechas *****************************
+
+export interface EmpleadoAsistenciaPorFecha {
+  claveEmpleado:  string;
+  mainPicture:    string;
+  nombreCompleto: string;
+  rfc:            string;
+  fechas:         Fecha[];
+}
+
+export interface Fecha {
+  fecha:   Date;
+  accesos: Acceso[];
+  diaHO: boolean;
+}
 
 
+// **************************** Dias Home Office  *****************************
 
 
-// ********************** Pedidos ***************************************
-export interface Pedido {
+export interface TblDiasAsignados {
   id: number;
-  idCliente: number;
-  fechaCorreo: string;
-  fechaRegistro: string;
-  usuarioRegistro: string;
-  estatus: number;
-  usuarioActualiza: string;
-  ordenCompra: string;
-  region: string;
-  tipoOrdenCompra: string;
-  fechaOrden: string;
-  fechaEntrega: string;
-  horaEntrega: string;
-  elaboradoPor: string;
-  totalGlobal: number;
-}
-
-export interface DetallePedidos {
-  estatus: boolean;
-  data: Pedido[];
-}
-
-export interface RespuestaPedidos {
-  message: string;
-  detalle: DetallePedidos;
-}
-
-//**************************** Reporte *********************************
-export interface Partidas {
-  clave: string;
-  codigoBarras: string;
-  descripcion: string;
-  empaque: number;
-  cantidad: number;
-  totalCajas: number;
-  totalCosto: number;
-}
-
-export interface DatosOrdenCompra {
-  id: number;
-  region: string;
-  ordenCompra: string;
-  tipoOrdenCompra: string;
-  fechaOrden: string;
-  fechaEntrega: string;
-  horaEntrega: string;
-  elaboradoPor: string;
-  partidas: Partidas[];
-  totalGlobal: number;
-  receivedDateTime: string; // En Angular suele representarse Date como string
-}
-
-export interface DetallePedidosReporte {
-  estatus: boolean;
-  data: DatosOrdenCompra[];
-}
-
-export interface RespuestaPedidosReporte {
-  message: string;
-  detalle: DetallePedidosReporte;
-}
-
-
-// ********************** Detalle de Pedidos/Partidas ***************************************
-
-export interface PedidoDetalle {
-  id: number;
-  idPedido: number;
-  claveMaterialCliente: string;
-  codigoBarrasCliente: string;
-  descripcionCliente: string;
-  empaqueCliente?: number; 
-  cantidadCliente?: number; 
-  totalCajasCliente?: number; 
-  totalCostoCliente?: number; 
-  observaciones?: string; 
-  usuarioActualiza?: string;
-  
-  datosSAP: DatosSAPMaterial;
-}
-
-export interface PedidoDetalleAPI {
-  estatus: boolean;
-  data: PedidoDetalle[];
-}
-
-export interface RespuestaPedidosDetalleAPI {
-  message: string;
-  detalle: PedidoDetalleAPI;
-}
-
-export interface NormaEmpaque {
-  piezasCaja: number;
-  piezasTarima: number;
-  cajasTarima: number;
-}
-
-export interface DatosSAPMaterial {
-  sociedad: string;
-  claveMaterial: string;
-  nombreMaterial: string;
-  normaEmpaque: NormaEmpaque;
-}
-
-
-
-// ******************** Perfiles **********************
-export interface ApiResponsePerfilesData {
-  message: string;
-  detalle: {
-    estatus: boolean;
-    data: Perfiles[];
-  };
-}
-
-export interface Perfiles {
-  id: number;
-  nombre: string | null;
-  estatus: number | null;
-}
-
-// **********************Data********************************
-
-export interface Regiones {
-  nombre: string;
-}
-export interface ApiResponseRegiones {
-  message: string;
-  detalle: {
-    estatus: boolean;
-    data: Regiones[];
-  };
-}
-
-
-export interface TiposOrden {
-  nombre: string;
-}
-export interface ApiResponseTiposOrden{
-  message: string;
-  detalle: {
-    estatus: boolean;
-    data: TiposOrden[];
-  };
-}    
-
-// ************************ Filtros de consulta **********
-export interface FiltrosDeConsultaPedidos {
-  tipoFecha?: number;
-  fechaInicio?: string; // o Date si usarás objetos Date directamente
-  fechaFin?: string;
-  region?:string;
-  tipoOrdenCompra?: string;
+  numeroDia?: number;
+  dia: string;
   estatus?: number;
-  ordenCompra?: string;
+  fechaRegistro?: Date;
+  empleados: DatosEmpleado[];
+  inputValue?: string; // Añadir esta línea
 }
+
+export interface DatosEmpleado {
+  claveEmpleado: string;
+  nombreCompleto: string;
+  area: string;
+  puesto: string;
+  correo: string;
+  rfc: string;
+  nss: string;
+}
+
+

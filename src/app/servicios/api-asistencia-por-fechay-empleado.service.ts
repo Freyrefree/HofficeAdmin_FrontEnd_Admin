@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { EmpleadoAsistenciaPorFecha } from './amigurumis.service';
+
+// Interfaces
+import { EmpleadoAsistenciaPorFecha } from '../Interfaces/Data';
 
 @Injectable({
   providedIn: 'root'

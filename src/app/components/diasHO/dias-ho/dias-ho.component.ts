@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 // Servicios
 import { ApiDiasHOService } from 'src/app/servicios/api-dias-ho.service';
 // Interfaces
-import { TblDiasAsignados } from 'src/app/servicios/amigurumis.service';
+import { TblDiasAsignados } from 'src/app/Interfaces/Data';
 
 // Alertas
 import { MatSnackBar } from '@angular/material/snack-bar';

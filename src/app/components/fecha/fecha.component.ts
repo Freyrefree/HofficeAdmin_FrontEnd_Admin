@@ -3,11 +3,12 @@ import { Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { jsPDF } from 'jspdf';
 import 'jspdf-autotable';
-import html2canvas from 'html2canvas';
 
 //servicios
-import { AmigurumisService, EmpleadoAsistenciaPorFecha } from 'src/app/servicios/amigurumis.service';
 import { ApiAsistenciaPorFechayEmpleadoService } from 'src/app/servicios/api-asistencia-por-fechay-empleado.service';
+
+//interfaces
+import { EmpleadoAsistenciaPorFecha } from 'src/app/Interfaces/Data';
 
 // Alertas
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -26,7 +27,6 @@ export class FechaComponent implements OnInit {
 
 
   constructor(
-    private _router: Router,
     private fb: FormBuilder,
     private snackBar: MatSnackBar,
     private apiAsistenciaPorFechayEmpleadoService: ApiAsistenciaPorFechayEmpleadoService

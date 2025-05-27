@@ -1,18 +1,18 @@
 import { Component, OnInit, Input, Output,EventEmitter,ViewChild   } from '@angular/core';
 import { Router } from '@angular/router';
-import { FotoEmpleadoModalComponent } from '../foto-empleado-modal/foto-empleado-modal.component';
 
-//servicios
-import { EmpleadoAsistencia } from 'src/app/servicios/amigurumis.service';
+//interfaces
+import { EmpleadoAsistencia } from 'src/app/Interfaces/Data';
+
 declare var bootstrap: any; // Declara la variable bootstrap para usarla más adelante
 
 
 @Component({
-  selector: 'app-amigurumi-tarjeta',
-  templateUrl: './amigurumi-tarjeta.component.html',
-  styleUrls: ['./amigurumi-tarjeta.component.css']
+  selector: 'app-empleado-tarjeta',
+  templateUrl: './empleado-tarjeta.component.html',
+  styleUrls: ['./empleado-tarjeta.component.css']
 })
-export class AmigurumiTarjetaComponent {
+export class EmpleadoTarjetaComponent {
 
   @Input() amigurumi: any = {};
   @Input() empleado: EmpleadoAsistencia = {} as EmpleadoAsistencia;
@@ -20,7 +20,6 @@ export class AmigurumiTarjetaComponent {
   @Input() index: number = 0
   @Output() amigurumiSeleccionado:EventEmitter<number>;
 
-  @ViewChild(FotoEmpleadoModalComponent) modal!: FotoEmpleadoModalComponent;
 
 
   selectedImageUrl: string = '';

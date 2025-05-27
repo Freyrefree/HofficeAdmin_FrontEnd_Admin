@@ -1,0 +1,37 @@
+
+  <div class="col">
+
+    <div class="card h-100 animated fadeIn fast">
+      <div class="card-header text-white" style="background-color: #10446b;">{{ empleado.nombreCompleto }}</div>
+
+      <img [src]="empleado.mainPicture" class="card-img-top" [alt]="empleado.nombreCompleto">
+      <div class="card-body">
+
+        <p class="card-text" style="color: #11577c;">Clave Empleado: <span style="color: #10446b;">{{ empleado.claveEmpleado }}</span></p>
+        <p class="card-text" style="color: #11577c;">Fecha: <span style="color: #10446b;">{{ empleado.fecha }}</span></p>
+        <h3 class="card-text" style="color: #11577c;">Accesos</h3>
+  
+        <div class="people-list" style="max-height: 200px; overflow-y: auto;">
+          <ul class="list-group">
+            <div *ngFor="let acceso of empleado.accesos">
+              <li class="list-group-item d-flex align-items-center">
+                <img alt="" class="rounded-circle me-3" [src]="acceso.secondaryPath" style="width: 50px; height: 50px;" (click)="openImage(acceso.secondaryPath)">
+                <div class="about">
+                  <div class="status text-muted" style="color: #11577c;">
+                    <i class="fa fa-reply text-danger me-1"></i>
+                    <small>{{ formatFechaHora(acceso.fechaHora) }}</small>
+                  </div>
+                </div>
+              </li>
+            </div>
+          </ul>
+        </div>
+        
+      </div>
+   
+    </div>
+  
+
+
+  </div>
+  
