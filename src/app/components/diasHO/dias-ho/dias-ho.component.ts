@@ -63,51 +63,49 @@ export class DiasHOComponent implements OnInit {
     }
   }
 
-  onEnter(dia: any): void {
-    if (dia.inputValue && dia.inputValue.length === 8) {
-      console.log(`Día ID: ${dia.id} con valor: ${dia.inputValue}`);
-      // Aquí puedes realizar otras acciones si lo necesitas
-       // Consumir el API para realizar la asignación del día
-       this.apiDiasHOService.postAsignacionDia(dia.id, dia.inputValue).subscribe(
-        (response) => {
-          if (response) {
-            console.log('Asignación realizada exitosamente');
-
-
-
-            this.cargarDiasHO();
-
-            
-          } else {
-            console.log('La asignación falló o ya existe');
-
-            this.snackBar.open('La asignación falló o ya existe', 'Cerrar', {
-              duration: 6000,
-              panelClass: ['mat-warn']
-            });
-      
-
-
-          }
-        },
-        (error) => {
-          console.error('Ocurrió un error al asignar el día', error);
+onEnter(dia: any): void {
+  if (dia.inputValue && dia.inputValue.length === 8) {
+    console.log(`Día ID: ${dia.id} con valor: ${dia.inputValue}`);
+    
+    this.apiDiasHOService.postAsignacionDia(dia.id, dia.inputValue).subscribe({
+      next: (response) => {
+        if (response.success) {
+          console.log('Asignación exitosa:', response.message);
+          
+          this.snackBar.open(response.message, 'Cerrar', {
+            duration: 6000,
+            panelClass: ['mat-success'] // Usa una clase de estilo para éxito
+          });
+          
+          this.cargarDiasHO();
+        } else {
+          console.log('Asignación fallida:', response.message);
+          
+          this.snackBar.open(response.message, 'Cerrar', {
+            duration: 6000,
+            panelClass: ['mat-warn']
+          });
         }
-      );
+      },
+      error: (error) => {
+        console.error('Error en la solicitud:', error);
+        
+        const errorMessage = error.error?.message || 'Error al conectar con el servidor';
+        this.snackBar.open(errorMessage, 'Cerrar', {
+          duration: 6000,
+          panelClass: ['mat-error'] // Asegúrate de tener esta clase en tus estilos
+        });
+      }
+    });
 
-
-
-
-
-    } else {
-      console.log('El valor ingresado no es válido, debe tener exactamente 8 dígitos');
-      this.snackBar.open('El valor ingresado no es válido, debe tener exactamente 8 dígitos', 'Cerrar', {
-        duration: 6000,
-        panelClass: ['mat-warn']
-      });
-
-    }
+  } else {
+    console.log('El valor ingresado no es válido, debe tener exactamente 8 dígitos');
+    this.snackBar.open('El valor ingresado no es válido, debe tener exactamente 8 dígitos', 'Cerrar', {
+      duration: 6000,
+      panelClass: ['mat-warn']
+    });
   }
+}
 
 
   eliminarEmpleado(idDia: number, claveEmpleado: string): void {

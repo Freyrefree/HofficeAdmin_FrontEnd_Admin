@@ -96,6 +96,21 @@ export class UserService {
     return localStorage.getItem('token');
   }
 
+  // Método para obtener la claveEmpleado del localStorage
+  getClaveEmpleadoFromDatosEmpleado(): string | null {
+    const datosEmpleadoStr = localStorage.getItem('datosEmpleado');
+    if (!datosEmpleadoStr) {
+      return null;
+    }
+    try {
+      const datosEmpleado = JSON.parse(datosEmpleadoStr);
+      return datosEmpleado.claveEmpleado || null;
+    } catch (error) {
+      console.error('Error al parsear datosEmpleado:', error);
+      return null;
+    }
+  }
+
   // Método para verificar si el usuario está autenticado
   isAuthenticated(): boolean {
     const token = this.getToken();

@@ -6,18 +6,29 @@ import { Observable } from 'rxjs';
 import { EmpleadoAsistenciaPorFecha } from '../Interfaces/Data';
 import { API_URLS } from '../Config/api-urls';
 
+// Servicios
+import { UserService } from './Usuarios/user.service'; // Importa el UserService
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApiAsistenciaPorFechayEmpleadoService {
 
  
-  constructor(private httpClient: HttpClient) { }
+  constructor(
+    private httpClient: HttpClient,
+    private userService: UserService // Inyecta el UserService
+  ) { }
 
   postAsistenciaPorFechas(fechaInicio: string, fechaFin: string, claveEmpleado?: string): Observable<EmpleadoAsistenciaPorFecha[]> {
+    
+    const claveUsuario = this.userService.getClaveEmpleadoFromDatosEmpleado();
+    console.log('ClaveEmpleado obtenida:', claveUsuario);
+
     const formData: FormData = new FormData();
     formData.append('FechaInicio', fechaInicio);
     formData.append('FechaFin', fechaFin);
+        formData.append('claveUsuario', claveUsuario ?? '');
     if (claveEmpleado) {
       formData.append('ClaveEmpleado', claveEmpleado);
     }
@@ -28,9 +39,13 @@ export class ApiAsistenciaPorFechayEmpleadoService {
 
   postReportePorFechas(fechaInicio: string, fechaFin: string, claveEmpleado?: string): Observable<EmpleadoAsistenciaPorFecha[]> {
 
+    const claveUsuario = this.userService.getClaveEmpleadoFromDatosEmpleado();
+    console.log('ClaveEmpleado obtenida:', claveUsuario);
+
     const formData: FormData = new FormData();
     formData.append('FechaInicio', fechaInicio);
     formData.append('FechaFin', fechaFin);
+    formData.append('claveUsuario', claveUsuario ?? '');
     if (claveEmpleado) {
       formData.append('ClaveEmpleado', claveEmpleado);
     }

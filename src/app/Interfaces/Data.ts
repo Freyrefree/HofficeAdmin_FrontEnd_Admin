@@ -125,3 +125,11 @@ export interface DatosEmpleado {
 }
 
 
+// respuesta de api 
+export interface ApiResponse {
+  success: boolean;
+  message: string;
+  detail?: string; // Opcional, solo para errores
+}
+
+
