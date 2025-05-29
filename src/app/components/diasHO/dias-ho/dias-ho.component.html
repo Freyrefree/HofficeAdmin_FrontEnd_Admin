@@ -42,13 +42,18 @@
             </h3>
             <div [ngClass]="allCollapsed ? '' : 'show'" class="collapse" id="collapse{{dia.id}}" style="max-height: 500px; overflow-y: auto;">
               <!-- Iteración sobre los empleados dentro de cada día -->
-              <div *ngFor="let empleado of dia.empleados; let i = index" class="mb-2 d-flex justify-content-between align-items-center">
-                <div class="row w-100">
-                  <div class="col"><strong>{{ empleado.nombreCompleto }}</strong></div>
-                  <div class="col"><small>{{ empleado.claveEmpleado }}</small></div>
-                  <div class="col"><button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(dia.id, empleado.claveEmpleado)">Eliminar</button></div>
-                </div>
-              </div>
+<div *ngFor="let empleado of dia.empleados; let i = index" class="mb-2">
+  <div class="row w-100">
+    <div class="col"><strong>{{ empleado.nombreCompleto }}</strong></div>
+    <div class="col"><small>{{ empleado.claveEmpleado }}</small></div>
+    <div class="col">
+      <button class="btn btn-danger btn-sm" (click)="eliminarEmpleado(dia.id, empleado.claveEmpleado)">Eliminar</button>
+    </div>
+  </div>
+  <!-- Línea horizontal solo si no es el último -->
+  <hr *ngIf="i < dia.empleados.length - 1" class="my-2 w-100" />
+</div>
+
             </div>
             
           </div>
